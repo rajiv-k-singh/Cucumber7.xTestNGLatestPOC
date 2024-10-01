@@ -1,9 +1,15 @@
 package pages;
 
-import org.junit.Assert;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
+
+import java.time.Duration;
 
 public class LoginPage {
 
@@ -16,10 +22,10 @@ public class LoginPage {
     private By forgottenPasswordLinkLocator = By.linkText("Forgotten Password");
     private By logoutLinkLocator = By.linkText("Logout");
 
-
     // Constructor
     public LoginPage(WebDriver driver) {
         this.driver = driver;
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     // Methods
@@ -43,11 +49,11 @@ public class LoginPage {
         forgottenPasswordLink.click();
     }
 
-    public boolean checkForgotPwdLink(){
+    public boolean checkForgotPwdLink() {
         return driver.findElement(forgottenPasswordLinkLocator).isDisplayed();
     }
 
-    public boolean checkLogoutLink(){
+    public boolean checkLogoutLink() {
         return driver.findElement(logoutLinkLocator).isDisplayed();
     }
 
@@ -57,10 +63,13 @@ public class LoginPage {
         clickLoginButton();
     }
 
-    public String getForgotPwdPageUrl(){
-        String forgotPwdPageUrl = driver.getCurrentUrl();
-        return forgotPwdPageUrl;
+    public String getForgotPwdPageUrl() {
+        return driver.getCurrentUrl();
     }
 
-
+    @Test
+    public void testLogin() {
+        // Example test case for login functionality
+        login("test@example.com", "password123");
+    }
 }
